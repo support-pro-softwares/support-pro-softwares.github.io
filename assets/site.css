@@ -211,9 +211,8 @@ main {
 /* Home page */
 .lede {
   margin: 0 0 1.5rem;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   max-width: 46rem;
-  text-wrap: balance;
 }
 .product {
   display: flex;
