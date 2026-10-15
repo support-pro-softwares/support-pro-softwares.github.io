@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tidy Labels privacy policy | Pro Softwares</title>
+<meta name="description" content="What Tidy Labels for Confluence stores, where, for how long and who can see it, and what it reports to Atlassian and erases.">
+<link rel="canonical" href="https://support-pro-softwares.github.io/tidy-labels/privacy-policy/">
+<link rel="icon" href="/assets/app-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css?v=a7d2fea6">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/"><img src="/assets/app-logo.svg" alt="" width="36" height="36"><span>Pro Softwares</span></a>
+<nav class="docnav" aria-label="Tidy Labels documents">
+<ul>
+<li><a href="/tidy-labels/user-guide/">User guide</a></li>
+<li><a href="/tidy-labels/privacy-policy/" aria-current="page">Privacy policy</a></li>
+<li><a href="/tidy-labels/support/">Support</a></li>
+<li><a href="/tidy-labels/security/">Security</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main id="content" class="wrap">
+<article class="doc">
+<h1 id="tidy-labels--privacy-policy">Tidy Labels – privacy policy</h1>
+<p>Effective 15 October 2026. Provided by Pro Softwares ("we").</p>
+<p>This policy describes what the Tidy Labels app for Confluence Cloud (version 1) stores, where, for how
+long and who can see it, and what the app reports to Atlassian and erases about people. It describes
+how the app works. It is not a certification and not a statement of compliance with any privacy law or
+standard.</p>
+<p><strong>What Tidy Labels stores</strong>, in Atlassian's Forge storage for your site only:</p>
+<ul>
+<li>job records: the type of change, the label names involved, where it applies (the whole site, a
+space, or a page tree and its start page), the search settings typed for a bulk edit (title words,
+a label, the content type and, for Confluence admins, an advanced CQL query), the search query the
+app built from them, who started it (their Atlassian account ID), when, and result counts;</li>
+<li>the content IDs of the pages and blog posts each job planned to change, and the result for each
+change;</li>
+<li>the titles of up to 50 pages and blog posts shown in each job's preview, with the labels to add or
+remove. The app stores these titles when it plans the job. They are not what people see: whenever
+anyone opens a preview or report, the app asks Confluence for the current titles as that person;</li>
+<li>a saved list of label names and usage counts for the site or a space, kept separately for each
+person who opens the site-wide or space screen, with a small note that points to the list and names
+its owner (their account ID);</li>
+<li>working notes that stop two things happening at once. The note of a job, for the whole site or for a
+space, says that a job is running there, and holds the job ID, the account ID of the person running
+it and the time of its last activity. The notes of single steps (planning, a batch, a pause, building
+a saved label list) hold only a time; the one for a saved label list also has its owner's account ID
+in its name;</li>
+<li>the app's own records of its personal data reporting (see below): for each person, their account ID
+with the time of the last report, a mark while the erasure for a closed account is unfinished, and a
+mark when Atlassian refuses to take an ID; and one record, with no account ID in it, that remembers
+when Atlassian last accepted accounts.</li>
+</ul>
+<p><strong>What it does not store:</strong> page or blog post content, comments, attachments, email addresses, names
+or profile pictures. Where a name appears on screen (for example in Activity), Atlassian shows it from
+the account ID. The app stores nothing in your browser.</p>
+<p><strong>Personal data:</strong> the app stores Atlassian account IDs (the identifier Atlassian gives each user):</p>
+<ul>
+<li>the person who started each job;</li>
+<li>the owner of a personal space that a job works in. The key of a personal space is <code>~</code> followed by an
+identifier of its owner, and a job stores the key of its space, so it names that person even if they
+never used the app;</li>
+<li>the person running a job, in the note of the job;</li>
+<li>the person a saved label list belongs to, in the names of the list, of the note that points to it and
+of the note of the step that builds it;</li>
+<li>the app's own reporting records that name a person, listed above.</li>
+</ul>
+<p>Page titles, label names, search text and the keys of ordinary spaces are typed or chosen by your
+people and can contain personal information. The app can't tell, so it neither reports nor erases
+them. They expire with the job.</p>
+<p><strong>Where it lives:</strong> inside Atlassian's cloud, in Forge storage that is scoped to your site
+("Runs on Atlassian" hosting). The app has no servers or databases of its own and makes no calls
+outside Atlassian. None of the data described here is sent to us or to anyone other than Atlassian,
+who hosts it. The only thing that reaches us from the app is its log lines (see "Who can see it").
+Once an hour a scheduled job of the app calls Atlassian's personal data reporting API, which is an
+Atlassian service (see "Reporting to Atlassian and erasure"). According to Atlassian's documentation,
+an admin can control where Forge storage data is held (Atlassian's data residency controls), and the
+data is encrypted and stored under Atlassian's cloud policies.</p>
+<p><strong>How long:</strong></p>
+<ul>
+<li>Job records and everything stored with them (planned changes, results, the preview, pause and
+cancel requests) are marked to expire 90 days after the job was created. A job that is discarded, or
+that has nothing to change, is deleted at once.</li>
+<li>When a new job (or an undo job) is created, the app also trims the history to the newest 500 jobs,
+oldest first. It keeps a running job, the original of an undo job that isn't finished, and a job
+that another window is working on at that moment (the next trim tries again). A trim has a time
+limit like any other step, so when many jobs are over the limit it removes some now and the rest at
+the next one. It also deletes the working note of a job that it removes, if the job still has one.</li>
+<li>A person's saved label list, and the small note that points to it, expire 90 days after the scan
+that built the list started.</li>
+<li>The app's reporting records: the record of the last report expires 30 days after it was written (the
+app writes it again at each report, about every 7 days, so it goes about a month after a person is
+no longer stored). The mark about a refused ID expires after 30 days. The record of when Atlassian
+last accepted accounts expires after 7 days. The mark about a closed account stays until its erasure
+is finished, and is then deleted.</li>
+<li>Working notes. The note of a single step is deleted when the step ends, and one that a stopped step
+left behind is deleted by the hourly job once it is an hour old. The note of a job, which stops two
+jobs running at once in a space (or on the whole site), has no expiry date of its own. The app
+deletes it when the job finishes or is cancelled and when the history trim removes the job, and a
+later job takes it over once it has been idle for 15 minutes. The hourly job also deletes a note that
+has been idle for 15 minutes and whose job is finished or gone. The note of a paused or abandoned
+job stays for as long as the job is kept, at most 90 days, and holds an account ID until then. It
+goes earlier when the person it names is reported closed (the hourly job then deletes it once it has
+been idle for 15 minutes), and when the app is uninstalled.</li>
+<li>According to Atlassian's documentation, Atlassian's storage can take up to 48 hours to remove an
+expired item. The app stops showing a job once its 90 days are up.</li>
+<li>If you uninstall Tidy Labels, Atlassian deletes the app's stored data for your site under its own
+retention rules. We keep no copy. Atlassian may keep backups under its own policies.</li>
+</ul>
+<p><strong>Reporting to Atlassian and erasure:</strong> the app uses Atlassian's personal data reporting API, as
+Atlassian asks of apps that store personal data. A scheduled job of the app runs every hour, as the
+app and with no user. It reads and writes only Forge storage and calls only Atlassian's reporting API.
+It never calls Confluence, and it runs whether or not the subscription is active.</p>
+<ul>
+<li>
+<em>What is sent, and to whom.</em> For each account ID the app stores, it sends Atlassian the account ID
+and one time: the earliest time the app stored that person's data. A job counts from the time it was
+created, and the app keeps the earliest time of all the places that hold the ID. A person who appears
+only in the note of a job, or who only owns saved label lists, has no job to count from: the time
+sent is then that of the note's last activity, or of the start of the list's scan. Nothing else is
+sent: no names, email addresses, page titles, label names, search text or job contents. It goes to
+Atlassian only.</li>
+<li>
+<em>How often.</em> Each account is sent at most once every 7 days (Atlassian's default cycle), so in
+practice every 7 days and normally at most an hour late. Up to 90 accounts go in one call. A run
+works for about 12 seconds and carries on at the next run, so a site with very many accounts may need
+some hours to report them all for the first time. If Atlassian is busy or a call fails, the app tries
+again at the next run.</li>
+<li>
+<em>What each run does, in this order.</em> It deletes the old notes of single steps, and the notes of jobs
+that are finished or gone (see "How long"). It finishes the erasure for accounts that Atlassian
+already reported closed, using at most half of the run's time. It reports the accounts that are due.
+Then it erases for any account that this report found closed. Erasure for accounts already known to
+be closed comes before the reporting, so a problem with the reporting can't hold it back.</li>
+<li>
+<em>When Atlassian says an account is closed.</em> The app learns this when it next reports that account,
+so within about a week. It then erases the following, in that run or in the next ones (an account with
+very many jobs may need several):
+<ul>
+<li>the link to the person in every job they started. The job stays in the history, so other admins
+can still open it and undo it, but Activity shows "Deleted user";</li>
+<li>the key of that person's personal space in every job that works there, whoever started the job,
+and the stored search that contains it. Activity then says "a deleted user's personal space". A job
+that is still being prepared keeps the key until its preparation ends;</li>
+<li>the person's saved label lists, whole, with the notes that point to them;</li>
+<li>the note of a job that names the person, once it has been idle for 15 minutes. A running or paused
+job that held it is marked Interrupted and can be resumed;</li>
+<li>last, the app's own records about that person.</li>
+</ul>
+</li>
+<li>
+<em>When Atlassian says "updated".</em> Nothing changes, because the app stores no name, email address or
+profile picture.</li>
+<li>
+<em>An ID that Atlassian refuses.</em> The app reports in two groups, one after the other. The first holds
+the account IDs that Atlassian itself gave the app: the people who started jobs, who run them, or who
+own saved label lists. The second holds the owners of personal spaces, whose IDs the app reads out of
+the key of the space. In our testing, the key of a current account's personal space was <code>~</code> and the
+account ID without its colon and hyphens (Atlassian does not document this). The app puts them back,
+so that it sends the ID Atlassian knows, and a person who is in both groups is sent once, in the
+first. For a key that holds something else, such as a user name, the app can't tell whether the text
+is an account ID, and Atlassian may refuse it. The second group is reported only when every
+account of the first that is due has been sent, so a refused ID can't hold back a real account. If
+Atlassian refuses a call, the app sends the accounts again in smaller groups until it finds the ID
+that is refused, and reports the others in the same run. It skips a refused ID for 30 days and then
+tries it again. It marks an ID as refused only when it is clear that the ID is at fault, for example
+when Atlassian accepted other accounts sent with it. For the owner of a personal space it counts as
+well that Atlassian accepted accounts of the first group, in this run or in the last 7 days (the app
+remembers that for 7 days, in a record with no account ID in it). Otherwise it marks nobody and tries
+again at the next run. If Atlassian seems to refuse everything, the app stops after a few calls.
+While an ID is skipped the app can't learn that the account is closed, so nothing is erased early for
+it: its jobs and saved label lists expire after 90 days as usual, and its working notes follow the
+rules under "How long".</li>
+<li>
+<em>What stays.</em> Erasure removes account IDs, not the work. These stay until their job expires after 90
+days: label names, the content IDs and results of each job, counts, page titles in stored previews,
+the search settings typed for bulk edits, and the keys of ordinary spaces. They are not account IDs,
+but your people could have typed a name or an ID into them, and the app can't tell.</li>
+</ul>
+<p><strong>Who can see it:</strong> only people using the app on your site, through its screens, and only what their
+Confluence permissions allow.</p>
+<ul>
+<li>Confluence admins see every job on the site in Activity: who started it (or "Deleted user"), what it
+did, where, and result counts.</li>
+<li>Space admins see the jobs in their space, including page-tree jobs there.</li>
+<li>Someone using "Labels for this page tree" sees their own jobs for that page.</li>
+<li>A job's preview and report show only the pages and blog posts the viewer can open in Confluence
+right now, with their current titles. Items the viewer can't open are left out of the preview and
+appear in the report only as counts per result code, with no ID, title or label.</li>
+<li>Each person's saved label list is built with that person's permissions and used only for that person.</li>
+<li>If another job is blocking yours, the screen shows who started it.</li>
+</ul>
+<p>We can't read your stored data. According to Atlassian's documentation, only the app itself can read
+and write it, and this app makes no calls outside Atlassian. The only thing that reaches us from the
+app is its log lines. A log line holds the event name, job IDs, the type of change (rename, merge,
+delete, bulk add, bulk remove or inherit), the kind of place it ran in (whole site, space or page
+tree), status and result codes, yes-or-no flags (for example whether a batch was rate limited),
+counts (for example how many label changes a batch made), the name of the app function that failed
+unexpectedly, the class name of an error (never its message) and HTTP status codes. A line is also
+written when a step can't delete its working note at the end; it names the job when the step belonged
+to a job. A log line never holds an account ID, page title, label name, space key or search text. The
+hourly reporting job writes one line per run with counts only: accounts stored, due, reported,
+updated, closed and refused; jobs, saved label lists and working notes erased for closed accounts;
+old notes of single steps and notes of finished or gone jobs deleted; pieces left for the next run or
+that failed; closed accounts still to finish; and how the run ended. When Atlassian refuses an ID or a
+call, a line says so with the HTTP status or a code, and with a flag if it was about the owner of a
+personal space. The hourly job never logs an account ID, and its own lines hold no job ID.</p>
+<p><strong>Analytics and tracking:</strong> none. The app has no analytics, tracking or advertising code.</p>
+<p><strong>What we receive outside the app:</strong> the emails you send to <a href="mailto:support.prosoftwares@gmail.com">support.prosoftwares@gmail.com</a>, and the licensing and
+purchase details that Atlassian shares with Marketplace vendors under its own Marketplace terms.</p>
+<p><strong>Your rights and contact:</strong> questions or requests about the data the app holds: <a href="mailto:support.prosoftwares@gmail.com">support.prosoftwares@gmail.com</a>. We
+have no way to look up or delete single records in your site's storage. The app erases a person's data
+by itself when Atlassian reports that person's account closed (see above). Otherwise job data and
+saved label lists expire on their own (see "How long"), and a Confluence admin can remove all of the
+app's stored data by uninstalling it.</p>
+</article>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<p>Support: <a href="mailto:support.prosoftwares@gmail.com">support.prosoftwares@gmail.com</a></p>
+</div>
+</footer>
+</body>
+</html>
