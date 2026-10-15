@@ -1,0 +1,313 @@
+/* Pro Softwares public site. System fonts only. No external resources, no scripts. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #ffffff;
+  --fg: #182125;
+  --muted: #465258;
+  --link: #0a6666;
+  --link-hover: #053b3b;
+  --border: #ccd6da;
+  --surface: #f2f6f7;
+  --accent: #0a6666;
+  --on-accent: #ffffff;
+  --focus: #1b5fd1;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1315;
+    --fg: #e3e9eb;
+    --muted: #a5b2b7;
+    --link: #62d8c8;
+    --link-hover: #a3eee3;
+    --border: #2a373b;
+    --surface: #161f23;
+    --accent: #62d8c8;
+    --on-accent: #0d1315;
+    --focus: #9bc0ff;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--fg);
+  font: 1rem/1.6 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  overflow-wrap: break-word;
+}
+
+.wrap {
+  width: 100%;
+  max-width: 46rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+/* Pages with a wide table (the security statement) get a wider column; text keeps its measure. */
+body.wide .wrap { max-width: 60rem; }
+
+a {
+  color: var(--link);
+  text-underline-offset: 0.15em;
+  overflow-wrap: anywhere;
+}
+a:hover { color: var(--link-hover); }
+
+:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 0;
+}
+.skip:focus {
+  left: 1rem;
+  top: 1rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--bg);
+  color: var(--fg);
+  border: 2px solid var(--fg);
+  border-radius: 0.375rem;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+.site-header .wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  padding-block: 0.75rem;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fg);
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.brand:hover { color: var(--link); }
+.brand img { display: block; width: 36px; height: 36px; }
+
+.docnav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.docnav a {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.docnav a:hover { text-decoration: underline; }
+.docnav a[aria-current="page"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+
+/* Main */
+main {
+  flex: 1 0 auto;
+  padding-block: 1.5rem 3rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.doc h1 {
+  margin: 0 0 1rem;
+  font-size: 1.9rem;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.doc h2 {
+  margin: 2rem 0 0.6rem;
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+.doc h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.15rem;
+  line-height: 1.3;
+}
+.doc p { margin: 0 0 1rem; }
+
+/* Keep running text at a readable width; tables may use the full column. */
+.doc > :where(p, ul, ol, h1, h2, h3, h4, blockquote) { max-width: 46rem; }
+
+.doc ul, .doc ol { margin: 0 0 1rem; padding-left: 1.4rem; }
+.doc li + li { margin-top: 0.35rem; }
+.doc li > ul, .doc li > ol { margin-top: 0.35rem; margin-bottom: 0; }
+.doc li > p { margin: 0.35rem 0; }
+
+.doc code {
+  padding: 0.05em 0.3em;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: var(--surface);
+  font: 0.9em ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  overflow-wrap: anywhere;
+}
+.doc pre {
+  max-width: 100%;
+  margin: 0 0 1rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.375rem;
+  background: var(--surface);
+  overflow-x: auto;
+}
+.doc pre code { padding: 0; border: 0; background: none; overflow-wrap: normal; }
+
+.doc table {
+  width: 100%;
+  margin: 1rem 0 1.5rem;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+.doc th, .doc td {
+  padding: 0.55rem 0.7rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.doc th { background: var(--surface); font-weight: 650; }
+
+.doc img { max-width: 100%; height: auto; }
+
+/* Home page */
+.lede {
+  margin: 0 0 1.5rem;
+  font-size: 1.2rem;
+  max-width: 46rem;
+  text-wrap: balance;
+}
+.product {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  margin-top: 1.5rem;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--surface);
+}
+.product-logo { flex: none; width: 72px; height: 72px; }
+.product-body { min-width: 0; }
+.product h2 { margin: 0 0 0.5rem; font-size: 1.4rem; line-height: 1.3; }
+.product p { margin: 0 0 1rem; max-width: 46rem; }
+
+.doc .linklist {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.doc .linklist li, .doc .linklist li + li { margin: 0; }
+.linklist a, .soon {
+  display: inline-block;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+.linklist a {
+  border: 1px solid var(--link);
+  background: var(--bg);
+  text-decoration: none;
+  font-weight: 600;
+}
+.linklist a:hover { text-decoration: underline; }
+.soon {
+  border: 1px dashed var(--muted);
+  color: var(--muted);
+}
+
+/* Footer */
+.site-footer {
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.site-footer .wrap { padding-block: 1rem; }
+.site-footer p { margin: 0; }
+
+/* Narrow screens */
+@media (max-width: 40em) {
+  .doc h1 { font-size: 1.6rem; }
+  .doc h2 { font-size: 1.25rem; }
+
+  /* Tables become one block per row, each cell labelled by its column name. */
+  .doc table, .doc thead, .doc tbody, .doc tr, .doc th, .doc td { display: block; }
+  .doc thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .doc tr {
+    margin: 0 0 1rem;
+    padding: 0.25rem 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--surface);
+  }
+  .doc td { padding: 0.45rem 0; border: 0; }
+  .doc td + td { border-top: 1px solid var(--border); }
+  .doc td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 0.1rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 650;
+  }
+}
+
+@media (max-width: 30em) {
+  .product { flex-direction: column; gap: 0.75rem; }
+}
+
+@media print {
+  .site-header, .skip { display: none; }
+  body { background: #fff; color: #000; }
+  a { color: #000; }
+}
