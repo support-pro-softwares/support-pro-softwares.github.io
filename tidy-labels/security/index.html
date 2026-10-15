@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tidy Labels data and security statement | Pro Softwares</title>
+<meta name="description" content="How Tidy Labels for Confluence is hosted, what data it stores, who can access it, what it logs, how it reports personal data to Atlassian, and how to report a vulnerability.">
+<link rel="canonical" href="https://support-pro-softwares.github.io/tidy-labels/security/">
+<link rel="icon" href="/assets/app-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css?v=a7d2fea6">
+</head>
+<body class="wide">
+<a class="skip" href="#content">Skip to content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/"><img src="/assets/app-logo.svg" alt="" width="36" height="36"><span>Pro Softwares</span></a>
+<nav class="docnav" aria-label="Tidy Labels documents">
+<ul>
+<li><a href="/tidy-labels/user-guide/">User guide</a></li>
+<li><a href="/tidy-labels/privacy-policy/">Privacy policy</a></li>
+<li><a href="/tidy-labels/support/">Support</a></li>
+<li><a href="/tidy-labels/security/" aria-current="page">Security</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main id="content" class="wrap">
+<article class="doc">
+<p class="eyebrow">Tidy Labels for Confluence</p>
+<h1 id="data-and-security-statement">Data and security statement</h1>
+<p><strong>In short.</strong> Tidy Labels runs entirely on Atlassian's Forge platform. It talks only to Confluence, as
+the person using it, and to Atlassian's own storage and personal data reporting service. It has no
+servers of its own and sends nothing to us except log lines made of IDs, codes and counts. It can do
+only what the person using it is allowed to do in Confluence. It keeps job history and saved label
+lists for a limited time, plus working notes that stop two things happening at once. The app deletes
+a note when its job or step ends. An hourly job deletes the notes that a stopped step left behind and
+the note of a job that is finished or gone. It stores Atlassian account IDs, but no names, email
+addresses, page content or credentials. It reports those account IDs to Atlassian on a regular cycle
+and erases a person's data when Atlassian reports that person's account closed. The details follow.</p>
+<p>This statement describes Tidy Labels version 1. Each answer comes from the app's code and manifest,
+except where it says "Atlassian's documentation", which marks a statement about the Forge platform
+that Atlassian makes. It is not a certification and not a statement of compliance with any law or
+standard. The <a href="/tidy-labels/privacy-policy/">privacy policy</a> is the one place that describes retention, reporting and erasure: where
+this page points to it, the policy is the answer.</p>
+<ul>
+<li>
+<strong>Hosting:</strong> Atlassian Forge, built to the "Runs on Atlassian" model: all code runs, and all data
+is stored, on Atlassian's platform. No external servers, no egress, no remote calls. The manifest
+declares no remotes and no external permissions, and the app has no web triggers or event
+triggers. Its one scheduled trigger runs the personal data job described under Personal data. The
+screens are built with Atlassian's UI Kit; the app serves no web pages, scripts or files of its
+own. Data flow: the person's browser talks to the app's Forge function on Atlassian's platform, and
+that function calls Confluence's own REST APIs as that person and reads and writes Forge storage.
+The hourly scheduled function is a second, separate function. It runs as the app, with no user,
+reads and writes Forge storage, calls Atlassian's personal data reporting API, and never calls
+Confluence. No other service is involved.</li>
+<li>
+<strong>Data stored:</strong> see the data inventory below. It is kept in Forge storage (the key-value store),
+scoped to the installation. Atlassian's documentation says only the app can read and write its
+stored data and that it cannot read data from other sites or environments. The app stores nothing
+in the browser.</li>
+<li>
+<strong>Encryption:</strong> done by Atlassian's platform. Atlassian's documentation says Forge storage data is
+transferred, encrypted and stored according to Atlassian cloud's data encryption policies. The app
+adds no encryption of its own. (The base64url text in keys is an encoding, not encryption.)</li>
+<li>
+<strong>Storage location:</strong> Forge storage only, hosted by Atlassian. Atlassian's documentation says an
+admin can control where that data is stored (Atlassian's data residency controls). The app sends no
+stored data to us or to any third party. The only account data it sends anywhere is to Atlassian's
+personal data reporting API (see Personal data).</li>
+<li>
+<strong>Retention:</strong> see "How long" in the <a href="/tidy-labels/privacy-policy/">privacy policy</a>, which covers expiry, the 500-job limit,
+working notes, the expiry lag, uninstall and backups. The inventory below gives the expiry of each
+kind of record.</li>
+<li>
+<strong>Personal data:</strong> the records that hold an Atlassian account ID are marked in the inventory below.
+The app stores no names, email addresses or profile pictures. Page titles, label names, search text
+and the keys of ordinary spaces come from your users, can contain personal information, and are
+neither reported nor erased. What is reported to Atlassian, how often, what is erased when Atlassian
+reports an account closed, what happens to an ID that Atlassian refuses, and what stays are
+described under "Reporting to Atlassian and erasure" in the <a href="/tidy-labels/privacy-policy/">privacy policy</a>. What the policy leaves
+out:
+<ul>
+<li>
+<em>Scope and trigger.</em> The scope <code>report:personal-data</code>, used only by the hourly job. One scheduled
+trigger, hourly, runs the function <code>privacy</code>. It runs as the app with no user, touches only Forge
+storage and Atlassian's reporting API, never calls Confluence, and does not check the
+subscription. No screen can call it.</li>
+<li>
+<em>Account IDs sent.</em> The account ID <code>unknown</code> is never sent. The IDs go in two groups, one after the
+other, each with its own batches, splits and cap. The first is the IDs that the platform gave the
+app: the creator of a job, the holder of a scope lock, the owner of a saved label list and of its
+lease. The second is the owner of a personal space, read from the key of the space (<code>~</code> and an ID).
+QA saw that the key of a current account's personal space is <code>~</code> and the account ID without its
+colon and hyphens (Atlassian does not document the key), so the app puts them back: when the text
+after the <code>~</code> is letters and digits that end with exactly 32 hex digits, the ID is the part before
+those 32 digits, a colon and the 32 digits as a UUID (8-4-4-4-12). That is the ID the platform
+gives for the same account, and the same reading finds the jobs to erase when Atlassian reports it closed.
+Any other text after the <code>~</code> (a legacy ID of 24 hex digits, a user name) is sent as it is, and
+nothing says that it is an account ID, so Atlassian may refuse it. The second group is sent only
+when every ID of the first that is due has been sent. An ID that is in both groups, such as the
+admin who started a job in their own personal space, is sent once, in the first, with the older of
+its two times.</li>
+<li>
+<em>Failures.</em> A rate limit (429), a server error or any failure with no client-error status ends the
+run, is logged as a code, and is tried again at the next run. Nothing is recorded for the accounts
+of a failed call.</li>
+<li>
+<em>Refused IDs.</em> When Atlassian refuses a call with a client error other than 429, the app sends
+the batch again in halves, both halves before either is split further, so what Atlassian takes is
+written down early. An ID is marked as refused (a <code>privacy:unreportable</code> record) only when
+something shows that the ID is at fault: Atlassian took other accounts of its batch, whatever
+status it refused this one with; or, for an ID of the second group, Atlassian took IDs of the first
+group in the same run or within the last 7 days (the <code>privacy:proof</code> record below); or the ID was
+the whole batch and Atlassian answered 400 or 422. For any other client error on a lone ID (for
+example 401, 403, 404 or 408) with none of that proof, and when Atlassian refuses a whole batch,
+nobody is marked: the run stops, logs the status, and the next run tries again. A stall in the
+second group ends the run too, but only after every ID of the first group that is due was sent. The
+split stops once four IDs were refused on their own and none was taken, so a refusal of everything
+costs 19 calls for a batch of 90 and not the run's whole time budget. Where IDs of the first group
+were taken, the split of the second group has no such stop, because the refusals are then the IDs'
+own.</li>
+<li>
+<em>The proof.</em> After the first group, whenever Atlassian took at least one of its IDs (also when a
+later call of the same run failed), the app writes <code>privacy:proof</code>: a time and nothing else, with
+no account ID in it, expiring after 7 days. Every run reads it before it sends anything. A record
+that is 7 days old or older, that lies in the future or that cannot be read proves nothing, and a
+run in which Atlassian took none of the first group writes none. A failed write is counted in
+<code>failed</code> and does not stop the run.</li>
+<li>This statement is not a claim of compliance with any privacy law or standard.</li>
+</ul>
+</li>
+<li>
+<strong>Access control:</strong>
+<ul>
+<li>Every Confluence read and write runs as the signed-in person (<code>asUser</code>). The app never calls
+Confluence as itself (<code>asApp</code>) and has no credentials of its own, so effects never exceed that
+person's Confluence permissions. Undo runs as whoever clicks it. The hourly function makes no
+Confluence call at all.</li>
+<li>Each request is bound to the screen it came from. The app takes the screen (module) from the
+context Forge supplies, and for the space and page-tree screens the space or page too, never from
+the request; a request that names another space or page is refused. The site-wide settings page
+needs Confluence admin rights: the app checks them on every call from that page
+(<code>GET /wiki/rest/api/user/current?expand=operations</code>, the <code>administer</code> operation on the
+application), and site scope can only be requested from that page. The space screen can act only on
+its own space and on page trees inside it. The page action can act only on the page it was opened
+from (which must be in the same space) and on that page's descendants.</li>
+<li>Who gets which screen: the site-wide page is for Confluence admins and the space page is a
+Confluence space-settings page for space admins. The page action carries a display condition so
+that Confluence shows it only to people who can edit the page (Atlassian's documentation says the
+condition checks the person's permission on the page). None of them gives more than the
+person's own permissions, because everything runs as that person.</li>
+<li>Jobs are visible by screen. The site-wide page lists every job. The space page lists jobs whose
+scope is that space, including page-tree jobs there. The page action lists only the person's own
+jobs for that page. Any other job ID answers "not found", so IDs reveal nothing. A job's creator
+appears through Atlassian's user display (or as "Deleted user" once erased), with the label names,
+scope and result counts. Whoever can see a job can also resume, pause, cancel or undo it, and
+whatever that does runs with the permissions of the person who clicked.</li>
+<li>Preview items and report entries are re-checked for each viewer, the creator included. The app
+asks Confluence, as the viewer, for the current titles of the items. It shows only items the
+viewer can open, with the titles they see now; stored titles are never shown. Items the viewer
+can't open are left out of the preview and appear in the report only as counts per result code,
+with no ID, title or label.</li>
+<li>A saved label list belongs to one person. It is built with that person's permissions and no other
+person's screen reads it.</li>
+<li>If a job can't start because another job holds the scope lock, the screen shows who started that
+job (the account ID in the lock record, through Atlassian's user display).</li>
+<li>The licence is checked on every call from a screen, except the start-up call that explains an
+inactive licence. The entry point for screens serves only the app's own named functions. The
+hourly function is a separate function that only the scheduled trigger points at, so no screen
+can call it.</li>
+</ul>
+</li>
+<li>
+<strong>Permissions requested</strong> (scopes in the manifest): read Confluence users (used to check admin
+rights), search, read labels, write labels, read pages, read blog posts, read spaces, app storage,
+and report personal data (used only by the hourly job, to send account IDs to Atlassian's personal
+data reporting API). Label writes are the only write access to Confluence: the app can't change page
+content, comments, attachments, restrictions or settings.</li>
+<li>
+<strong>Input handling:</strong> every request is validated against a strict schema, and unknown fields are
+refused. Label names are checked against Confluence's rules, and content IDs must be digits only.
+Search values are escaped, and search operators are removed from typed title words. Advanced CQL is
+accepted from Confluence admins only. It is limited to 2,000 characters, must have balanced
+parentheses and no ORDER BY, is combined with the app's own type and scope clauses, and still runs
+as them.</li>
+<li>
+<strong>Logging:</strong> structured log lines, which are the app's Forge logs. We can read them with Forge's
+logging tools, and they are the only information from your site that reaches us.
+<ul>
+<li>A line holds: the event name; job IDs (and the ID of the job an undo reverses); the type of change
+(<code>rename</code>, <code>merge</code>, <code>delete</code>, <code>bulk_add</code>, <code>bulk_remove</code> or <code>inherit</code>); the kind of scope (<code>site</code>,
+<code>space</code> or <code>tree</code>, the last for a page tree); job status and result codes; yes-or-no flags (a
+batch rate limited or failed); counts (operations planned, label changes made, issues, chunk
+number, operations done); the name of the app function that failed unexpectedly; the class name
+of an error, never its message; and HTTP status codes.</li>
+<li>
+<code>lease_release_failed</code> is written when a step cannot delete its lease at the end, after its work
+was done and saved. The step is not turned into an error: the lease goes stale after a minute and
+the next step takes it over, or the hourly job deletes it after an hour. The line holds the job ID
+when the lease was a job's and nothing else when it was a saved label list's, because the key of
+that lease holds an encoded account ID.</li>
+<li>A line never holds an account ID, an encoded account ID, a page title, a label name, a space key,
+search text or page content.</li>
+<li>The hourly reporting job writes one <code>privacy_run</code> line per run. Its fields are the counts
+<code>stored</code>, <code>due</code>, <code>reported</code>, <code>updated</code>, <code>closed</code>, <code>unreportable</code>, <code>erasedJobs</code>,
+<code>erasedInventories</code>, <code>erasedLocks</code>, <code>erasedLeases</code>, <code>droppedLocks</code>, <code>skippedBusy</code>, <code>keptLocks</code>,
+<code>keptPlanning</code>, <code>failed</code> and <code>pending</code>, plus <code>ended</code> (<code>done</code>, <code>time</code>, <code>rate_limited</code>,
+<code>http_&lt;status&gt;</code> or <code>error</code>) and <code>error</code> (an error class name, or null). <code>erasedLeases</code> counts the
+leases it deleted for being an hour old, and <code>droppedLocks</code> the scope locks it deleted because
+their job was gone or finished; <code>erasedLocks</code> is for the locks of closed accounts.</li>
+<li>It also writes <code>privacy_account_unreportable</code> (the HTTP status only) when an ID is first marked
+as refused, <code>privacy_report_failed</code> (the code, and how many accounts were reported before the
+stop) when the reporting ends on a failure, and <code>privacy_failed</code> (the same counts as
+<code>privacy_run</code>) when the job cannot start. The first two carry <code>"derived":true</code> when they are about
+the second group (the owners of personal spaces) and have no such field otherwise. The privacy
+job's own lines hold no account ID, no encoded ID, no job ID and no error message; a
+<code>lease_release_failed</code> line written while it erases data follows the rule above.</li>
+</ul>
+</li>
+<li>
+<strong>Secrets:</strong> none. The app holds no credentials, tokens or API keys. Forge supplies the signed-in
+person's authorisation when the app calls Confluence, and the app's own authorisation for the
+reporting API.</li>
+<li>
+<strong>Sub-processors:</strong> none besides Atlassian.</li>
+<li>
+<strong>Known limitation (data integrity):</strong> if Forge stops a batch after Confluence applied a change but
+before the app saved its result, that change is recorded as "already right" when the job resumes.
+The page is correct, but undo won't reverse that one change. A safety margin before Forge's time
+limit makes this rare.</li>
+<li>
+<strong>Vulnerability reports:</strong> <a href="mailto:support.prosoftwares@gmail.com">support.prosoftwares@gmail.com</a>. We acknowledge a report within one business day.
+We follow Atlassian's security bug fix policy for Marketplace cloud apps, which sets the longest time we may
+take to fix a vulnerability, by severity: critical (CVSS 9.0 or higher) 10 days, high (7.0 to 8.9) 4 weeks,
+medium (4.0 to 6.9) 12 weeks, low (below 4.0) 25 weeks, counted from the day it is reported or triaged.
+Atlassian's page gives days and weeks and does not say business days, so we count calendar days. The <a href="/tidy-labels/support/">support
+policy</a>'s targets are for problems with the service and do not apply to vulnerabilities. The policy:
+<a href="https://developer.atlassian.com/platform/marketplace/security-bugfix-policy/" rel="nofollow">https://developer.atlassian.com/platform/marketplace/security-bugfix-policy/</a>
+</li>
+<li>
+<strong>Development practice:</strong> strict TypeScript, linting with no warnings allowed, automated tests
+with at least 90 % line coverage on all logic and data-access code (the test run fails below that),
+dependencies pinned to exact versions (Atlassian's Forge libraries, React and Zod), and a manual
+QA checklist run on a Confluence Cloud test site before release.</li>
+</ul>
+<h2 id="data-inventory">Data inventory</h2>
+<p>Every kind of record the app stores in Forge storage. A "list ID" is <code>site</code> or <code>space-&lt;spaceId&gt;</code>,
+then a dot, then a base64url encoding of the person's Atlassian account ID. An "encoded account ID"
+is that same encoding. Records that hold an account ID say so.</p>
+<table role="table">
+<thead role="rowgroup">
+<tr role="row">
+<th role="columnheader">Record (key)</th>
+<th role="columnheader">What it holds</th>
+<th role="columnheader">How long it is kept</th>
+</tr>
+</thead>
+<tbody role="rowgroup">
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Job record</strong> <code>job:&lt;jobId&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The request, who started it (account ID), progress and results. See "Job record, in detail" below.</td>
+<td role="cell" data-label="How long it is kept">Expires 90 days after the job was created.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Operation chunks</strong> <code>ops:&lt;jobId&gt;:&lt;n&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The planned changes, up to 500 per chunk: content ID, page or blog post, add or remove, and a number that points to a label name in the job record.</td>
+<td role="cell" data-label="How long it is kept">Same as the job.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Result chunks</strong> <code>res:&lt;jobId&gt;:&lt;n&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">One result code per planned change (<code>ok</code>, <code>noop</code>, <code>forbidden</code>, <code>not_found</code>, <code>archived</code>, <code>invalid</code>, <code>server_error</code>, or empty while pending) and a small retry counter.</td>
+<td role="cell" data-label="How long it is kept">Same as the job.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Stored preview</strong> <code>preview:&lt;jobId&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">Up to 50 items, each with the content ID, page or blog post, <strong>the page title</strong>, and the labels it adds or removes, plus warnings (a code, sometimes with a label name or a number). Capped at about 200 KB.</td>
+<td role="cell" data-label="How long it is kept">Same as the job.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Pause or cancel request</strong> <code>intent:&lt;jobId&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The word pause or cancel.</td>
+<td role="cell" data-label="How long it is kept">Deleted when the request has been carried out. If it never is, it expires with the job.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Batch lease</strong> <code>lease:&lt;jobId&gt;</code> and <code>lease:inv.&lt;list ID&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">A timestamp. Held briefly while the app writes to a job (a planning step, a batch, a pause, a cancel, an undo) or builds or erases a label list. The label-list lease key holds the encoded account ID.</td>
+<td role="cell" data-label="How long it is kept">Deleted when the step ends (a delete that fails is logged as <code>lease_release_failed</code> and does not fail the step). The hourly job deletes any lease that is an hour old or more. No TTL.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Scope lock</strong> <code>lock:site</code> and <code>lock:space:&lt;spaceId&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The job ID, the <strong>account ID</strong> of the person running the job, and the time of its last heartbeat.</td>
+<td role="cell" data-label="How long it is kept">No TTL. Deleted when the job finishes or is cancelled, and when the history trim removes the job. A later job takes over one with no heartbeat for 15 minutes. The hourly job deletes one with no heartbeat for 15 minutes whose job is finished or gone (counted in <code>droppedLocks</code>), and one whose holder was reported closed (<code>erasedLocks</code>). The lock of a job that is still alive, for example a paused one, stays as long as the job is kept, at most 90 days.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Saved label list</strong> <code>inv:&lt;list ID&gt;:meta</code> and <code>inv:&lt;list ID&gt;:&lt;n&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">For one person and one scope (the site, or one space): label names with usage counts (up to 500 rows per chunk), and a small header (state, progress, timestamps, the list ID). The list ID holds the encoded account ID.</td>
+<td role="cell" data-label="How long it is kept">Expires 90 days after the scan started. Replaced by Refresh list.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Label-list index record</strong> <code>invown:&lt;encoded account ID&gt;:&lt;list ID&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The owner's <strong>account ID</strong> in plain text, the list ID and the time the scan started. One per saved label list; it lets the privacy job find a person's lists without reading them.</td>
+<td role="cell" data-label="How long it is kept">Expires 90 days after the scan started, like the list.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Report record</strong> <code>privacy:reported:&lt;encoded account ID&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The <strong>account ID</strong> and the time it was last sent to Atlassian. None for an account Atlassian reported closed.</td>
+<td role="cell" data-label="How long it is kept">Expires 30 days after it was written; written again at each report.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Closed-account mark</strong> <code>privacy:pending:&lt;encoded account ID&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The <strong>account ID</strong>. Exists only while the erasure for an account Atlassian reported closed is unfinished.</td>
+<td role="cell" data-label="How long it is kept">No expiry date, so the work can't be forgotten. Deleted by the app as the last step of the erasure.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Refused-ID mark</strong> <code>privacy:unreportable:&lt;encoded account ID&gt;</code>
+</td>
+<td role="cell" data-label="What it holds">The <strong>account ID</strong> and the HTTP status with which Atlassian refused it (nothing else of Atlassian's answer).</td>
+<td role="cell" data-label="How long it is kept">Expires 30 days after it was written; then the ID is tried again.</td>
+</tr>
+<tr role="row">
+<td role="cell" data-label="Record (key)">
+<strong>Proof record</strong> <code>privacy:proof</code>
+</td>
+<td role="cell" data-label="What it holds">The time at which Atlassian last took IDs that the platform gave the app. No account ID, nothing else.</td>
+<td role="cell" data-label="How long it is kept">Expires 7 days after it was written; written again whenever Atlassian takes such IDs.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Job record, in detail</strong></p>
+<ul>
+<li>Job ID, type, status, created and updated times, and the IDs of the original or undo job.</li>
+<li>The <strong>account ID</strong> of the person who started it, until Atlassian reports that account closed (then
+it is cleared).</li>
+<li>Where it applies: the whole site; a space with its ID and key; or a page tree with its space and
+start-page ID. The key of a personal space names its owner (<code>~</code> and an identifier) and is replaced
+by a marker when that owner is reported closed.</li>
+<li>What it does: the label names, and for a bulk edit the filter (typed title words, a label name, the
+content type and, for Confluence admins, advanced CQL).</li>
+<li>The search query (CQL) the app built from the request. It contains the space key and is dropped
+when the key is erased. While planning, the job also holds the cursor into the search results.</li>
+<li>Progress counts and result counts by code.</li>
+</ul>
+<p><strong>Notes</strong></p>
+<ul>
+<li>
+<strong>Titles.</strong> Page titles are stored only in the preview record, for at most 50 items per job. The
+app doesn't show them from storage: whenever anyone opens a preview or a report it asks Confluence
+for the current titles as that viewer. Reports store no titles.</li>
+<li>
+<strong>Everything else about how long.</strong> Trimming the history, the expiry lag, working notes, uninstall
+and backups are in "How long" in the <a href="/tidy-labels/privacy-policy/">privacy policy</a>.</li>
+</ul>
+</article>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<p>Support: <a href="mailto:support.prosoftwares@gmail.com">support.prosoftwares@gmail.com</a></p>
+</div>
+</footer>
+</body>
+</html>
