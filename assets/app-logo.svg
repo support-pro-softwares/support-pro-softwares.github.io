@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="144" height="144" viewBox="0 0 144 144" role="img" aria-labelledby="logo-title logo-desc">
+  <title id="logo-title">Tidy Labels logo</title>
+  <desc id="logo-desc">A white label with a check mark and an eyelet, in front of an amber label, on a rounded teal square.</desc>
+  <defs>
+    <linearGradient id="square" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1AB8A6"/>
+      <stop offset="1" stop-color="#0A6666"/>
+    </linearGradient>
+    <mask id="eyelet" maskUnits="userSpaceOnUse" x="0" y="0" width="144" height="144">
+      <rect width="144" height="144" fill="#fff"/>
+      <circle cx="52" cy="76" r="7.5" fill="#000"/>
+    </mask>
+  </defs>
+  <rect x="4" y="4" width="136" height="136" rx="32" fill="url(#square)"/>
+  <g mask="url(#eyelet)">
+    <path d="M118 36H72L46 58l26 22h46z" fill="#FFC857" stroke="#FFC857" stroke-width="14" stroke-linejoin="round" transform="rotate(-11 80 60) translate(8 -2)"/>
+  </g>
+  <g mask="url(#eyelet)">
+    <path d="M114 52H64L32 76l32 24h50z" fill="#fff" stroke="#fff" stroke-width="16" stroke-linejoin="round"/>
+  </g>
+  <path d="M77 76l11 11 21-23" fill="none" stroke="#0A6666" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
