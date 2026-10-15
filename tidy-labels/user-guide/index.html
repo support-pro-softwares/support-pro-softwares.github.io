@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Tidy Labels user guide | Pro Softwares</title>
+<meta name="description" content="How to use Tidy Labels for Confluence: where to find it, the steps every change follows, duplicates, bulk edit, activity and undo.">
+<link rel="canonical" href="https://support-pro-softwares.github.io/tidy-labels/user-guide/">
+<link rel="icon" href="/assets/app-logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/assets/site.css?v=a7d2fea6">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site-header">
+<div class="wrap">
+<a class="brand" href="/"><img src="/assets/app-logo.svg" alt="" width="36" height="36"><span>Pro Softwares</span></a>
+<nav class="docnav" aria-label="Tidy Labels documents">
+<ul>
+<li><a href="/tidy-labels/user-guide/" aria-current="page">User guide</a></li>
+<li><a href="/tidy-labels/privacy-policy/">Privacy policy</a></li>
+<li><a href="/tidy-labels/support/">Support</a></li>
+<li><a href="/tidy-labels/security/">Security</a></li>
+</ul>
+</nav>
+</div>
+</header>
+<main id="content" class="wrap">
+<article class="doc">
+<h1 id="tidy-labels-user-guide">Tidy Labels user guide</h1>
+<h2 id="where-to-find-it">Where to find it</h2>
+<ul>
+<li>
+<strong>Confluence admins:</strong> Confluence administration → Apps → Tidy Labels. Works across the whole site
+or one space.</li>
+<li>
+<strong>Space admins:</strong> Space settings → Integrations → Tidy Labels. Works in that space.</li>
+<li>
+<strong>Anyone who can edit a page:</strong> the page's ••• menu → Apps → <em>Labels for this page tree</em>. Works on
+that page and the pages below it. According to Atlassian's documentation, Confluence shows this
+menu item only to people who can edit the page. Page trees start at a page, so use it from a page.
+To change labels on blog posts, ask a space admin to use <strong>Bulk edit</strong> in space settings.</li>
+</ul>
+<h2 id="your-own-permissions-apply">Your own permissions apply</h2>
+<p>Tidy Labels does everything in Confluence as you, with your permissions. It can't open or change any
+page or blog post that you couldn't open or change yourself.</p>
+<ul>
+<li>It finds, previews and changes only pages and blog posts you can see, and it can change only the
+ones you can edit. Pages you can see but can't edit are skipped and listed with a reason.</li>
+<li>Your label list and usage counts show what you can see. They are saved separately for each person,
+so two admins can see different lists and counts, and <strong>Count all</strong> runs once for each person.</li>
+<li>A preview or report lists only the pages and blog posts you can open in Confluence right now, with
+their current titles. In a report, anything you can't open (deleted or restricted) is counted by
+reason, and no title, page ID or label is shown for it.</li>
+<li>Undo runs as whoever clicks it, with that person's permissions.</li>
+</ul>
+<h2 id="labels-tab">Labels tab</h2>
+<p>The Labels tab is on the admin and space screens. Confluence admins choose <strong>Whole site</strong> or <strong>One
+space</strong> at the top; space admins see their own space.</p>
+<p>The first visit loads the list of labels (large sites take a minute). Tidy Labels saves the list,
+shows how old it is, and uses the saved list on later visits. <strong>Refresh list</strong> loads it again.
+Counts appear for the labels on screen. <strong>Count all</strong> counts every label (<strong>Stop</strong> ends it early),
+which enables sorting by usage and <strong>Show only rare labels</strong> (labels used on at most 2 pages and
+blog posts; you can change the number). Use <strong>Rename</strong>, <strong>Merge</strong> or <strong>Delete</strong> on any row:</p>
+<ul>
+<li>
+<strong>Rename</strong> gives a label a new name. Pages that already have the new label keep it.</li>
+<li>
+<strong>Merge</strong> moves one or more labels into a target label, which can be an existing label or a new name.</li>
+<li>
+<strong>Delete</strong> removes a label from every page and blog post in the chosen scope.</li>
+</ul>
+<p>Each of them ends with <strong>Preview changes</strong>, which starts the steps below. Bulk edit and Inherit end
+the same way, and in Duplicates <strong>Merge into …</strong> starts them.</p>
+<h2 id="every-change-follows-the-same-steps">Every change follows the same steps</h2>
+<ol>
+<li>
+<strong>Preparing:</strong> Tidy Labels finds the affected pages and blog posts. Nothing has changed. You can
+stop here. Keep the window open while it works: if you close it, Activity still says Preparing for
+about three minutes and then says Stopped. Open the job from <strong>Activity</strong> and it carries on.</li>
+<li>
+<strong>Review:</strong> you see totals, up to the first 50 items of the plan, minus any you can't open, and
+any warnings. Nothing has changed yet. Click <strong>Start</strong> to go on, or <strong>Discard</strong> to drop the plan. A
+site-wide delete or merge asks you to type the label name (for a merge, the target label) to
+confirm.</li>
+<li>
+<strong>Running:</strong> changes are made in batches, by the window that shows the job, so keep that window
+open until the job ends. <strong>Pause</strong> at any time; it takes effect when the batch in progress ends.
+<strong>Cancel job</strong> stops it for good, and changes already made stay in place. If Confluence asks Tidy
+Labels to slow down, it waits and carries on by itself. If you close the window, the job stops
+where it is. Closing the page action's window with its X, Esc or a click outside it pauses the
+job. If you close the browser tab or leave the page, Activity still says Running for about three
+minutes and then says Stopped (counted on Atlassian's clock, so a wrong clock on your computer
+doesn't matter). Either way, open <strong>Activity</strong> later, click <strong>Open</strong> on the job and then
+<strong>Resume</strong>: it carries on from where it stopped.</li>
+<li>
+<strong>Report:</strong> what changed, what was already right, and the reason for each skipped page you can
+open. Skipped items you can't open are counted by reason.</li>
+</ol>
+<p>The numbers count label changes, not pages. Renaming a label on one page is usually two changes: add
+the new label, remove the old one. "Already right" means the page already had what the job wanted.
+Skipped items carry one of these reasons: You don't have permission to edit this page; Page no
+longer exists; Archived page; Confluence rejected the label; Confluence error, retried several times.</p>
+<h2 id="duplicates">Duplicates</h2>
+<p>Duplicates works on the label list from the Labels tab, so wait for that list to finish loading.
+Labels that differ only by case, separators (<code>-</code>, <code>_</code>, <code>.</code>), singular/plural (matched with English
+rules) or a one-letter typo are grouped together. Typo matching applies to names of six or more
+characters, not counting separators, and labels with different numbers (e.g. <code>release-2023</code> and
+<code>release-2024</code>) are never grouped. Each group suggests the most used label to keep; run <strong>Count all</strong>
+on the Labels tab for better suggestions. Choose the label to keep and click <strong>Merge into …</strong>. You
+always see a preview first.</p>
+<h2 id="bulk-edit-and-inherit">Bulk edit and Inherit</h2>
+<p><strong>Bulk edit</strong> adds or removes labels on a whole space, a page tree, or pages matching a search (title
+contains, has the label, pages or blog posts). Separate labels with commas. Confluence admins can also
+search the whole site and use an advanced CQL query, which runs with their permissions and is combined
+with the other choices. In the page action, Bulk edit works on that page and the pages below it.</p>
+<p><strong>Inherit</strong> copies chosen labels from a page to every page below it. Pages that already have a label
+keep it. It changes pages only, not blog posts.</p>
+<h2 id="activity">Activity</h2>
+<p>The <strong>Activity</strong> tab (<strong>My activity</strong> in the page action) lists jobs, 20 to a page: when, who started
+it, what it did, where, status and result. Confluence admins see every job on the site. Space admins
+see the jobs in their space, including page-tree jobs there. In the page action you see your own jobs
+for that page. Click <strong>Open</strong> to see a job's preview, progress or report. Whoever can see a job can
+also carry it on (resume, pause, cancel or undo it), and what that does runs with the permissions of
+the person who clicked. Activity reads the list each time you open its tab, and a list you leave open
+doesn't change by itself: leave the tab and come back to see where the jobs are now.</p>
+<p>When Atlassian reports a person's account closed, Tidy Labels removes the link between that person and
+the jobs they started, so <strong>Who</strong> shows "Deleted user". A job that worked in that person's personal
+space says "a deleted user's personal space" under <strong>Where</strong>. The jobs stay in the history, so admins
+can still open and undo them. Tidy Labels also deletes that person's saved label lists and, once
+they have been idle for a while, the working notes that stop two jobs running at once (see the <a href="/tidy-labels/privacy-policy/">privacy
+policy</a>).</p>
+<h2 id="undo">Undo</h2>
+<p>Open <strong>Activity</strong>, choose a finished, cancelled or interrupted job and click <strong>Undo</strong>. The button
+appears for jobs that changed something and haven't been undone. Undo reverses exactly the changes
+that job made, using your permissions, and shows a preview first. Changes the job didn't make
+(skipped, or already right) are left alone. Undo is a job like any other: you can pause or cancel it,
+and undo it in turn. A job can be undone while it is in the history.</p>
+<h2 id="good-to-know">Good to know</h2>
+<ul>
+<li>Changes use your own Confluence permissions. Pages you can't edit are skipped and listed.</li>
+<li>Archived pages are not changed.</li>
+<li>Only standard (global) labels are listed and changed. Labels with another prefix, such as personal
+<code>my:</code> labels, are left alone.</li>
+<li>New label names are lowercase, spaces become hyphens, they can have up to 255 characters (an emoji
+counts as two), and they can't contain : ; , . ? &amp; [ ] ( ) # ^ * @ !. Existing labels that break
+these rules can still be renamed or deleted.</li>
+<li>One job can make up to 50,000 label changes and use up to 50 labels. Larger changes need a narrower
+scope.</li>
+<li>Only one job at a time can run in a space. A site-wide job can't run while any other job is running,
+and the other way round; jobs in different spaces can run side by side. If a job can't start, the
+screen says who started the job that is in the way.</li>
+<li>A paused or stopped job holds its place for 15 minutes after its last batch. After that another job
+can start here, and your job is marked Interrupted. Resume it when the other job has finished.</li>
+<li>Job history is kept for 90 days, up to the newest 500 jobs.</li>
+<li>If your Tidy Labels subscription isn't active, the screens show a message instead (renew it in
+Manage apps). The job history isn't deleted because of that, and still expires after 90 days.</li>
+<li>If Forge stops a batch in the instant between Confluence saving a change and Tidy Labels recording
+it, that change is recorded as "already right" when the job resumes. The page is correct, but undo
+won't reverse that single change. This is rare: Tidy Labels stops starting new work well before
+Forge's time limit.</li>
+<li>Attachment labels and Jira labels are not supported.</li>
+</ul>
+</article>
+</main>
+<footer class="site-footer">
+<div class="wrap">
+<p>Support: <a href="mailto:support.prosoftwares@gmail.com">support.prosoftwares@gmail.com</a></p>
+</div>
+</footer>
+</body>
+</html>
