@@ -151,6 +151,9 @@ Confluence space-settings page for space admins. The page action carries a displ
 that Confluence shows it only to people who can edit the page (Atlassian's documentation says the
 condition checks the person's permission on the page). None of them gives more than the
 person's own permissions, because everything runs as that person.</li>
+<li>The space page checks space admin rights on every call, on the server, for the space in the context
+Forge supplies (<code>GET /wiki/api/v2/spaces/{id}/operations</code>, the <code>administer</code> operation on the space).
+If that check fails or can't be read, the call is refused.</li>
 <li>Jobs are visible by screen. The site-wide page lists every job. The space page lists jobs whose
 scope is that space, including page-tree jobs there. The page action lists only the person's own
 jobs for that page. Any other job ID answers "not found", so IDs reveal nothing. A job's creator
